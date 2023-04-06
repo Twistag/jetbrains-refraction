@@ -1,0 +1,96 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin url="https://www.refraction.dev/">
+    <id>com.refraction.plugin.intellij-refraction</id>
+    <name>Refraction</name>
+    <vendor url="https://www.refraction.dev/" email="hello@haydenbleasel.com">Hayden Bleasel</vendor>
+    <description>Learn, improve and generate code with AI</description>
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <intentionAction>
+            <className>com.refraction.plugin.intellijrefraction.intentions.BugsIntentionAction</className>
+        </intentionAction>
+        <intentionAction>
+            <className>com.refraction.plugin.intellijrefraction.intentions.DebugIntentionAction</className>
+        </intentionAction>
+        <intentionAction>
+            <className>com.refraction.plugin.intellijrefraction.intentions.DocumentationIntentionAction</className>
+        </intentionAction>
+        <intentionAction>
+            <className>com.refraction.plugin.intellijrefraction.intentions.LiteralsIntentionAction</className>
+        </intentionAction>
+        <intentionAction>
+            <className>com.refraction.plugin.intellijrefraction.intentions.RefactorIntentionAction</className>
+        </intentionAction>
+        <intentionAction>
+            <className>com.refraction.plugin.intellijrefraction.intentions.StyleIntentionAction</className>
+        </intentionAction>
+        <intentionAction>
+            <className>com.refraction.plugin.intellijrefraction.intentions.TypesIntentionAction</className>
+        </intentionAction>
+        <intentionAction>
+            <className>com.refraction.plugin.intellijrefraction.intentions.UnitTestsIntentionAction</className>
+        </intentionAction>
+    </extensions>
+    <actions>
+        <action
+                id="com.refraction.plugin.intellijrefraction.actions.RefractionSettingsAction"
+                class="com.refraction.plugin.intellijrefraction.actions.RefractionSettingsAction"
+                text="Refraction Settings">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
+
+        <group
+                id="org.intellij.sdk.action.GroupedActions"
+                text="Refraction"
+                popup="true">
+
+            <add-to-group
+                    group-id="EditorPopupMenu"
+                    anchor="after"
+                    relative-to-action="com.refraction.plugin.intellijrefraction.actions.BugsAction"/>
+
+            <action
+                    id="com.refraction.plugin.intellijrefraction.actions.BugsAction"
+                    class="com.refraction.plugin.intellijrefraction.actions.BugsAction"
+                    text="Detect Bugs"
+            />
+            <action
+                    id="com.refraction.plugin.intellijrefraction.actions.DebugAction"
+                    class="com.refraction.plugin.intellijrefraction.actions.DebugAction"
+                    text="Add Debug Statements"
+            />
+
+            <action
+                    id="com.refraction.plugin.intellijrefraction.actions.DocumentationAction"
+                    class="com.refraction.plugin.intellijrefraction.actions.DocumentationAction"
+                    text="Create Documentation"
+            />
+
+            <action
+                    id="com.refraction.plugin.intellijrefraction.actions.LiteralsAction"
+                    class="com.refraction.plugin.intellijrefraction.actions.LiteralsAction"
+                    text="Separate Hardcoded Literals"
+            />
+            <action
+                    id="com.refraction.plugin.intellijrefraction.actions.RefactorAction"
+                    class="com.refraction.plugin.intellijrefraction.actions.RefactorAction"
+                    text="Refactor Code"
+            />
+            <action
+                    id="com.refraction.plugin.intellijrefraction.actions.StyleAction"
+                    class="com.refraction.plugin.intellijrefraction.actions.StyleAction"
+                    text="Style Check"
+            />
+            <action
+                    id="com.refraction.plugin.intellijrefraction.actions.UnitTestsAction"
+                    class="com.refraction.plugin.intellijrefraction.actions.UnitTestsAction"
+                    text="Generate Unit Tests"
+            />
+            <action
+                    id="com.refraction.plugin.intellijrefraction.actions.TypesAction"
+                    class="com.refraction.plugin.intellijrefraction.actions.TypesAction"
+                    text="Add Types"
+            />
+        </group>
+    </actions>
+</idea-plugin>
