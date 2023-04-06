@@ -1,1 +1,1 @@
-rootProject.name = "intellij-refraction"
+rootProject.name = "jetbrains-refraction"
