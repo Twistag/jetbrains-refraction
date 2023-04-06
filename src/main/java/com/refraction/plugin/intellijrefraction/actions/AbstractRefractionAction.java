@@ -10,8 +10,6 @@ import com.refraction.plugin.intellijrefraction.service.RefractionBackendService
 import com.refraction.plugin.intellijrefraction.service.domain.CodeAndLanguage;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.http.HttpResponse;
-
 abstract class AbstractRefractionAction extends AnAction {
 
     private static final RefractionBackendService refractionBackendService = new RefractionBackendService();
@@ -51,16 +49,22 @@ abstract class AbstractRefractionAction extends AnAction {
 
     private void callApiToGenerateCode(@NotNull final AnActionEvent event, final CodeAndLanguage codeAndLanguage) {
         try {
-            refractionBackendService.callGenerateServiceAsync(API_URL + getUtility(), codeAndLanguage)
-                    .thenAcceptAsync(stringHttpResponse -> WriteCommandAction.runWriteCommandAction(event.getProject(), () -> getInsertTextAtTheEndOfTheSelection(event, stringHttpResponse)));
+            refractionBackendService.callServiceWithStreamResponseType(
+                    API_URL + getUtility(),
+                    codeAndLanguage,
+                    (text, offset) -> {
+                        WriteCommandAction.runWriteCommandAction(event.getProject(), () -> getInsertTextAtTheEndOfTheSelection(event, text, offset));
+                        return true;
+                    }
+            );
         } catch (final RefractionException ex) {
             NotificationService.showWarningNotification(ex.getMessage());
         } catch (final Exception ignore) {
         }
     }
 
-    private void getInsertTextAtTheEndOfTheSelection(@NotNull final AnActionEvent event, final HttpResponse<String> stringHttpResponse) {
-        intellijServices.insertTextAtTheEndOfTheSelection(event, "\n\n" + stringHttpResponse.body());
+    private void getInsertTextAtTheEndOfTheSelection(@NotNull final AnActionEvent event, final String text, final int offset) {
+        intellijServices.insertTextAtTheEndOfTheSelection(event, text, offset);
     }
 
 

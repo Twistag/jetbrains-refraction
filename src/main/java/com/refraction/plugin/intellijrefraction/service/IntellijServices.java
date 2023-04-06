@@ -55,12 +55,12 @@ public class IntellijServices {
                 .build();
     }
 
-    public void insertTextAtTheEndOfTheSelection(final AnActionEvent event, final String text) {
+    public void insertTextAtTheEndOfTheSelection(final AnActionEvent event, final String text, final int offset) {
         final Editor editor = event.getRequiredData(CommonDataKeys.EDITOR);
         final Document document = editor.getDocument();
 
         final SelectionModel selectionModel = editor.getSelectionModel();
         int end = selectionModel.getSelectionEnd();
-        document.insertString(end, text);
+        document.insertString(end + offset, text);
     }
 }
