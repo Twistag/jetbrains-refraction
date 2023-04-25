@@ -8,6 +8,7 @@ import com.refraction.plugin.intellijrefraction.service.IntellijServices;
 import com.refraction.plugin.intellijrefraction.service.NotificationService;
 import com.refraction.plugin.intellijrefraction.service.RefractionBackendService;
 import com.refraction.plugin.intellijrefraction.service.domain.CodeAndLanguage;
+import org.apache.http.HttpStatus;
 import org.jetbrains.annotations.NotNull;
 
 abstract class AbstractRefractionAction extends AnAction {
@@ -30,11 +31,11 @@ abstract class AbstractRefractionAction extends AnAction {
             refractionBackendService.authenticateUserAsync()
                     .thenAcceptAsync(httpResponse -> {
                         if (is2xx(httpResponse.statusCode())) {
-                            System.out.println("User is authenticated");
                             callApiToGenerateCode(event, codeAndLanguage);
-                        } else {
-                            System.out.println("User is not authenticated");
+                        } else if (HttpStatus.SC_NOT_FOUND == httpResponse.statusCode()){
                             NotificationService.showWarningNotification("User is not authenticated");
+                        } else {
+                            NotificationService.showWarningNotification("Couls not authenticate: " + httpResponse.body());
                         }
                     });
         } catch (final RefractionException ex) {
