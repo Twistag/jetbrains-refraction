@@ -35,7 +35,7 @@ abstract class AbstractRefractionAction extends AnAction {
                         } else if (HttpStatus.SC_NOT_FOUND == httpResponse.statusCode()){
                             NotificationService.showWarningNotification("User is not authenticated");
                         } else {
-                            NotificationService.showWarningNotification("Couls not authenticate: " + httpResponse.body());
+                            NotificationService.showWarningNotification("Could not authenticate: " + httpResponse.body());
                         }
                     });
         } catch (final RefractionException ex) {
