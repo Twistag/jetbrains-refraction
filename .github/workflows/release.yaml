@@ -21,7 +21,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      publish-token: ${{ secrets.env.PUBLISH_TOKEN }}
+      PUBLISH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
       HUSKY: 0
 
     # The list of steps that the action will go through
@@ -58,4 +58,4 @@ jobs:
 
       # Publish a package
       - name: Publish
-        run: ./gradlew publishPlugin -P intellijPublishToken=${{ env.publish-token }}
+        run: ./gradlew publishPlugin -P intellijPublishToken=${{ env.PUBLISH_TOKEN }}
