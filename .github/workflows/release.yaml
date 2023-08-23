@@ -57,4 +57,4 @@ jobs:
 
       # Publish a package
       - name: Publish
-        run: ./gradlew publishPlugin -P intellijPublishToken=${{ env.publish-token }}
+        run: ./gradlew publishPlugin -P intellijPublishToken=${{ secrets.publish_token }}
