@@ -26,7 +26,7 @@ public class RefractionBackendService {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static final PropertyService propertyService = new PropertyService();
     private static final HttpClient client = HttpClient.newHttpClient();
-    private static final String baseUrl = "https://www.refraction.dev";
+    private static final String baseUrl = "https://www.app.refraction.dev";
 
     public void callServiceWithStreamResponseType(final String path, final CodeAndLanguage codeAndLanguage, final Function2<String, Integer, Boolean> func) {
         HttpURLConnection connection = null;
